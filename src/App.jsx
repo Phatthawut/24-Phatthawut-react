@@ -41,7 +41,6 @@ function App() {
 			{toggleAdmin && (
 				<EmployeeTable employeeLists={employeeLists} isAdmin={true} />
 			)}
-			)
 		</div>
 	);
 }
