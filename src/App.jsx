@@ -17,6 +17,12 @@ function App() {
 		},
 	]);
 
+	const [newEmployee, setNewEmployee] = useState({
+		name: "",
+		lastname: "",
+		position: "",
+	});
+
 	const [toggleUser, setToggleUser] = useState(false);
 	const [toggleAdmin, setToggleAdmin] = useState(false);
 
@@ -26,6 +32,26 @@ function App() {
 
 	const handleAdminToggle = () => {
 		setToggleAdmin(!toggleAdmin);
+	};
+
+	const handleInput = (e) => {
+		setNewEmployee({ ...newEmployee, [e.target.name]: e.target.value });
+	};
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		setEmployeeLists([...employeeLists, newEmployee]);
+		setNewEmployee({
+			name: "",
+			lastname: "",
+			position: "",
+		});
+	};
+
+	const deleteEmployee = (name) => {
+		setEmployeeLists(
+			employeeLists.filter((employee) => employee.name !== name)
+		);
 	};
 
 	return (
@@ -39,9 +65,38 @@ function App() {
 			)}
 			<button onClick={handleAdminToggle}>Admin Home Sector</button>
 			{toggleAdmin && (
-				<EmployeeTable employeeLists={employeeLists} isAdmin={true} />
+				<form onSubmit={handleSubmit}>
+					<input
+						type="text"
+						name="name"
+						placeholder="First Name"
+						value={newEmployee.name}
+						onChange={handleInput}
+					/>
+					<input
+						type="text"
+						name="lastname"
+						placeholder="Last Name"
+						value={newEmployee.lastname}
+						onChange={handleInput}
+					/>
+					<input
+						type="text"
+						name="position"
+						placeholder="Position"
+						value={newEmployee.position}
+						onChange={handleInput}
+					/>
+					<button type="submit">Add Employee</button>
+				</form>
 			)}
-			)
+			{toggleAdmin && (
+				<EmployeeTable
+					employeeLists={employeeLists}
+					isAdmin={true}
+					deleteEmployee={deleteEmployee}
+				/>
+			)}
 		</div>
 	);
 }

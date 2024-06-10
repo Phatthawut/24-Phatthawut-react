@@ -1,4 +1,4 @@
-function EmployeeTable({ employeeLists, isAdmin }) {
+function EmployeeTable({ employeeLists, isAdmin, deleteEmployee }) {
 	return (
 		<div>
 			<h2>Employee Lists</h2>
@@ -19,7 +19,9 @@ function EmployeeTable({ employeeLists, isAdmin }) {
 							<td>{employee.position}</td>
 							{isAdmin && (
 								<td>
-									<button>Delete</button>
+									<button onClick={() => deleteEmployee(employee.name)}>
+										Delete
+									</button>
 								</td>
 							)}
 						</tr>
