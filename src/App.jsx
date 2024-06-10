@@ -17,16 +17,31 @@ function App() {
 		},
 	]);
 
-  const
+	const [toggleUser, setToggleUser] = useState(false);
+	const [toggleAdmin, setToggleAdmin] = useState(false);
+
+	const handleUserToggle = () => {
+		setToggleUser(!toggleUser);
+	};
+
+	const handleAdminToggle = () => {
+		setToggleAdmin(!toggleAdmin);
+	};
 
 	return (
 		<div>
 			<h1>Generation Thailand</h1>
 			<h2>React - Assessment</h2>
 			<br />
-			<button>User Home Sector</button>
-			<button>Admin Home Sector</button>
-			<EmployeeTable employeeLists={employeeLists, isAdmin} />
+			<button onClick={handleUserToggle}>User Home Sector</button>
+			{toggleUser && (
+				<EmployeeTable employeeLists={employeeLists} isAdmin={false} />
+			)}
+			<button onClick={handleAdminToggle}>Admin Home Sector</button>
+			{toggleAdmin && (
+				<EmployeeTable employeeLists={employeeLists} isAdmin={true} />
+			)}
+			)
 		</div>
 	);
 }
